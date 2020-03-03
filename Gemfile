@@ -4,3 +4,9 @@ source "https://rubygems.org"
 gemspec
 
 gem "rake", "~> 12.0"
+gem 'elasticsearch-model'
+gem 'ruby-progressbar'
+group :development do
+	gem 'pry'
+	gem 'pry-byebug'
+end
