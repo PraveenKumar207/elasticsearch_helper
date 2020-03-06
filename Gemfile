@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gemspec
 
 gem "rake", "~> 12.0"
-gem 'elasticsearch-model'
+gem 'elasticsearch-model', '~> 6.0'
 gem 'ruby-progressbar'
 group :development do
 	gem 'pry'

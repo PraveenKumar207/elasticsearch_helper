@@ -26,7 +26,6 @@ module ElasticsearchHelper
               `tar -xvf elasticsearch-#{elasticsearch_version}.tar.gz`
               `rm elasticsearch-#{elasticsearch_version}.tar.gz`
             end
-            puts "----1111"
           else
             puts 'Elasticsearch already installed'
           end
