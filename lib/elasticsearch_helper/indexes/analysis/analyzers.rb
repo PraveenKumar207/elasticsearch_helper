@@ -5,12 +5,12 @@ module ElasticsearchHelper
         def custom_english_analyzer
           {
             custom_english_analyzer: {
-              tokenizer: 'standard',
+              tokenizer: "standard",
               filter: [
-                'english_possessive_stemmer',
-                'lowercase',
-                'english_stop',
-                'english_stemmer'
+                "english_possessive_stemmer",
+                "lowercase",
+                "english_stop",
+                "english_stemmer"
               ]
             }
           }
@@ -19,8 +19,8 @@ module ElasticsearchHelper
         def standard_analyzer
           {
             standard_analyzer: {
-              type: 'custom',
-              tokenizer: 'standard'
+              type: "custom",
+              tokenizer: "standard"
             }
           }
         end
@@ -28,14 +28,14 @@ module ElasticsearchHelper
         def edge_ngram_analyzer
           {
             edge_ngram_analyzer: {
-              type: 'custom',
-              tokenizer: 'standard',
+              type: "custom",
+              tokenizer: "standard",
               filter: [
-                'lowercase',
-                'english_possessive_stemmer',
-                'english_stop',
-                'english_stemmer',
-                'custom_edge_ngram_filter'
+                "lowercase",
+                "english_possessive_stemmer",
+                "english_stop",
+                "english_stemmer",
+                "custom_edge_ngram_filter"
               ]
             }
           }
@@ -44,14 +44,14 @@ module ElasticsearchHelper
         def mathjax_analyzer
           {
             mathjax_analyzer: {
-              type: 'custom',
-              tokenizer: 'whitespace',
-              char_filter: ['img_source_char_filter', 'html_strip'],
+              type: "custom",
+              tokenizer: "whitespace",
+              char_filter: ["img_source_char_filter", "html_strip"],
               filter: [
-                'lowercase',
-                'english_possessive_stemmer',
-                'english_stop',
-                'english_stemmer'
+                "lowercase",
+                "english_possessive_stemmer",
+                "english_stop",
+                "english_stemmer"
               ]
             }
           }
@@ -60,15 +60,15 @@ module ElasticsearchHelper
         def mathjax_shingle_analyzer
           {
             mathjax_shingle_analyzer: {
-              type: 'custom',
-              tokenizer: 'whitespace',
-              char_filter: ['img_source_char_filter', 'html_strip'],
+              type: "custom",
+              tokenizer: "whitespace",
+              char_filter: ["img_source_char_filter", "html_strip"],
               filter: [
-                'lowercase',
-                'english_possessive_stemmer',
-                'english_stop',
-                'english_stemmer',
-                'mathjax_shingle_filter'
+                "lowercase",
+                "english_possessive_stemmer",
+                "english_stop",
+                "english_stemmer",
+                "mathjax_shingle_filter"
               ]
             }
           }
@@ -77,13 +77,13 @@ module ElasticsearchHelper
         def shingle_analyzer
           {
             shingle_analyzer: {
-              type: 'custom',
-              tokenizer: 'standard',
+              type: "custom",
+              tokenizer: "standard",
               filter: [
-                'lowercase',
-                'english_possessive_stemmer',
-                'english_stemmer',
-                'shingle_filter'
+                "lowercase",
+                "english_possessive_stemmer",
+                "english_stemmer",
+                "shingle_filter"
               ]
             }
           }
@@ -92,14 +92,14 @@ module ElasticsearchHelper
         def reverse_analyzer
           {
             reverse_analyzer: {
-              type: 'custom',
-              tokenizer: 'standard',
+              type: "custom",
+              tokenizer: "standard",
               filter: [
-                'lowercase',
-                'english_possessive_stemmer',
-                'english_stop',
-                'english_stemmer',
-                'reverse'
+                "lowercase",
+                "english_possessive_stemmer",
+                "english_stop",
+                "english_stemmer",
+                "reverse"
               ]
             }
           }
@@ -108,14 +108,14 @@ module ElasticsearchHelper
         def trigram_analyzer
           {
             trigram_analyzer: {
-              type: 'custom',
-              tokenizer: 'standard',
+              type: "custom",
+              tokenizer: "standard",
               filter: [
-                'lowercase',
-                'english_possessive_stemmer',
-                'english_stop',
-                'english_stemmer',
-                'trigram_filter'
+                "lowercase",
+                "english_possessive_stemmer",
+                "english_stop",
+                "english_stemmer",
+                "trigram_filter"
               ]
             }
           }

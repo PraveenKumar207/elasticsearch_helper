@@ -1,7 +1,7 @@
 module ElasticsearchHelper
   module Queries
     class SimilarSearch < Base
-      DEFAULT_MINIMUM_SHOULD_MATCH = '50%'.freeze
+      DEFAULT_MINIMUM_SHOULD_MATCH = "50%".freeze
       DEFAULT_MAX_QUERY_TERMS = 20
       DEFAULT_BOOST_TERMS = 1
       DEFAULT_MIN_TERM_FREQ = 1

@@ -5,9 +5,9 @@ module ElasticsearchHelper
         def img_source_char_filter
           {
             img_source_char_filter: {
-              type: 'pattern_replace',
-              pattern: '<img.*?src=\"([^\"]+)\"[^>]+>',
-              replacement: '$1'
+              type: "pattern_replace",
+              pattern: "<img.*?src=\"([^\"]+)\"[^>]+>",
+              replacement: "$1"
             }
           }
         end
@@ -15,9 +15,9 @@ module ElasticsearchHelper
         def new_line_char_filter
           {
             new_line_char_filter: {
-              type: 'mapping',
+              type: "mapping",
               mappings: [
-                '\\u000a => \\u0020'
+                "\\u000a => \\u0020"
               ]
             }
           }

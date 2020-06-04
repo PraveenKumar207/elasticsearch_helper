@@ -1,10 +1,10 @@
-require 'ruby-progressbar'
+require "ruby-progressbar"
 
 module ElasticsearchHelper
   module Tasks
     class Indexing
-      SINGLE_MODEL_IMPORT_RELATION = 'ES_IMPORT_RELATION'.freeze
-      MULTI_MODEL_IMPORT_RELATION = 'ES_IMPORT_RELATIONS'.freeze
+      SINGLE_MODEL_IMPORT_RELATION = "ES_IMPORT_RELATION".freeze
+      MULTI_MODEL_IMPORT_RELATION = "ES_IMPORT_RELATIONS".freeze
       DEFAULT_BATCH_SIZE = 1000
 
       def self.delete(index_name, force = false)
@@ -13,7 +13,7 @@ module ElasticsearchHelper
             Elasticsearch::Model.client.indices.delete index: index_name
             puts "Deleted Index #{index_name}"
           else
-            puts 'Remove aliases before deleting index'
+            puts "Remove aliases before deleting index"
           end
         else
           puts "Index #{index_name} does not exists"
@@ -21,7 +21,7 @@ module ElasticsearchHelper
       end
 
       def self.aliases
-        Elasticsearch::Model.client.indices.get_alias.reject { |_, value| value['aliases'].empty? }.keys
+        Elasticsearch::Model.client.indices.get_alias.reject { |_, value| value["aliases"].empty? }.keys
       end
 
       def self.index_exists?(index_name)
@@ -145,8 +145,8 @@ module ElasticsearchHelper
 
         def import(import_model = model)
           progress_bar = create_progress_bar(import_model)
-          batch_size = if model.const_defined?('INDEX_BATCH_SIZE')
-                         model.const_get('INDEX_BATCH_SIZE')
+          batch_size = if model.const_defined?("INDEX_BATCH_SIZE")
+                         model.const_get("INDEX_BATCH_SIZE")
                        else
                          DEFAULT_BATCH_SIZE
                        end
@@ -169,7 +169,7 @@ module ElasticsearchHelper
             title: "Completed Importing #{import_model.name}",
             total: import_count(import_model),
             format: "%a %b\u{15E7}%i %p%% %t %e",
-            progress_mark: ' ',
+            progress_mark: " ",
             remainder_mark: "\u{FF65}"
           )
         end
@@ -203,7 +203,7 @@ module ElasticsearchHelper
         end
 
         def new_index_name
-          @_new_index_name ||= Time.zone.now.strftime('%Y%m%d_%H%M%S_') + index_name
+          @_new_index_name ||= Time.zone.now.strftime("%Y%m%d_%H%M%S_") + index_name
         end
 
         # All indexes except current aliases and the latest

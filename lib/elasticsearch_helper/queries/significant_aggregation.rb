@@ -24,7 +24,7 @@ module ElasticsearchHelper
         attr_reader :field, :term_field, :term_value
 
         def type
-          raise 'Not a supported type' if !@type.in?(SUPPORTED_TYPES)
+          raise "Not a supported type" if !@type.in?(SUPPORTED_TYPES)
 
           @type
         end

@@ -2,7 +2,7 @@ module ElasticsearchHelper
   module Queries
     class FuzzySearch < Base
       MAX_EDIT_DISTANCE = 1
-      OPERATOR = 'and'.freeze
+      OPERATOR = "and".freeze
 
       def initialize(query_string:, field:, filters: {}, **options)
         @query_string = query_string

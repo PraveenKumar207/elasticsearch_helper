@@ -1,7 +1,7 @@
 module ElasticsearchHelper
   module Queries
     class MultiMatchSearch < Base
-      DEFAULT_OPERATOR = 'and'.freeze
+      DEFAULT_OPERATOR = "and".freeze
 
       def initialize(query_string:, fields_with_boosts:, **options)
         @query_string = query_string

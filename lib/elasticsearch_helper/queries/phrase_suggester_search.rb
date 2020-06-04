@@ -3,8 +3,8 @@ module ElasticsearchHelper
     # PhraseSuggesterSearch requires trigram and reverse to be defined for the field
     class PhraseSuggesterSearch < Base
       DEFAULT_SIZE = 1
-      DEFAULT_SUGGEST_MODE = 'missing'.freeze
-      REVERSE_ANALYZER = 'reverse_analyzer'.freeze
+      DEFAULT_SUGGEST_MODE = "missing".freeze
+      REVERSE_ANALYZER = "reverse_analyzer".freeze
 
       def initialize(suggestion_name:, phrase:, field:, **options)
         @suggestion_name = suggestion_name

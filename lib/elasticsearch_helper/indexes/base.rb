@@ -24,7 +24,7 @@ module ElasticsearchHelper
         def base_mappings
           {
             document_type => {
-              dynamic: 'strict',
+              dynamic: "strict",
               properties: {
                 id: { type: :long }
               }
@@ -78,20 +78,20 @@ module ElasticsearchHelper
 
         def default_field_options
           {
-            analyzer: 'custom_english_analyzer',
-            index_options: 'offsets',
-            term_vector: 'yes',
-            type: 'text'
+            analyzer: "custom_english_analyzer",
+            index_options: "offsets",
+            term_vector: "yes",
+            type: "text"
           }
         end
 
         def edge_ngram_options
           {
             edge_ngram: {
-              analyzer: 'edge_ngram_analyzer',
-              index_options: 'offsets',
-              term_vector: 'yes',
-              type: 'text'
+              analyzer: "edge_ngram_analyzer",
+              index_options: "offsets",
+              term_vector: "yes",
+              type: "text"
             }
           }
         end
@@ -102,10 +102,10 @@ module ElasticsearchHelper
 
         def shingle_options
           {
-            analyzer: 'shingle_analyzer',
-            index_options: 'offsets',
-            term_vector: 'yes',
-            type: 'text'
+            analyzer: "shingle_analyzer",
+            index_options: "offsets",
+            term_vector: "yes",
+            type: "text"
           }
         end
     end
