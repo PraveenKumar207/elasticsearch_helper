@@ -92,7 +92,7 @@ module Elasticsearch
 
         def sorted_terms(response, field)
           if response["found"]
-            response["term_vectors"][field.to_s]["terms"].to_a.sort_by { |x| x["second"]["score"] }.reverse
+            response["term_vectors"][field.to_s]["terms"].to_a.sort_by { |x| x.second["score"] }.reverse
           else
             []
           end
