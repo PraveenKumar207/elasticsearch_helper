@@ -3,10 +3,12 @@ module RescueWrapper
     class_method_names.each do |m|
       proxy = Module.new do
         define_method(m) do |*args|
-          super(*args)
-        rescue Faraday::ClientError, Elasticsearch::Transport::Transport::Errors::NotFound => e
-          if !Rails.env.test?
-            raise e
+          begin
+            super(*args)
+          rescue Faraday::ClientError, Elasticsearch::Transport::Transport::Errors::NotFound => e
+            if !Rails.env.test?
+              raise e
+            end
           end
         end
       end

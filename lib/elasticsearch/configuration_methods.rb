@@ -1,3 +1,5 @@
+require "elasticsearch/multi_modelable"
+
 module Elasticsearch
   module ConfigurationMethods
     extend ActiveSupport::Concern
