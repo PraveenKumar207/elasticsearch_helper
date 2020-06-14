@@ -88,24 +88,11 @@ module Elasticsearch
         # NotPresent OR deleted already
       end
 
-      def update_search_document_later(record_id, type = nil)
-        # return if ::Rails.env.development? || ::Rails.env.test?
-
-        delay(priority: 4, queue: "Elasticsearch").update_search_document(record_id)
-      end
-
-      def delete_search_document_later(record_id, type = nil)
-        # return if ::Rails.env.development? || ::Rails.env.test?
-
-        delay(priority: 4, queue: "Elasticsearch").delete_search_document(record_id)
-      end
-
       private
 
         def sorted_terms(response, field)
-          response = Hashie::Mash.new(response)
-          if response.found
-            response.term_vectors[field].terms.to_a.sort_by { |x| x.second.score }.reverse
+          if response["found"]
+            response["term_vectors"][field.to_s]["terms"].to_a.sort_by { |x| x["second"]["score"] }.reverse
           else
             []
           end
