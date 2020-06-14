@@ -5,4 +5,4 @@ require "elasticsearch/errors"
 require "elasticsearch/searchable"
 require "elasticsearch/response_ext"
 require "elasticsearch_helper/version"
-require "elasticsearch_helper/load_tasks"
+require "elasticsearch_helper/railtie" if defined?(::Rails::Railtie)
