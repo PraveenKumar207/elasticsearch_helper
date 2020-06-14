@@ -1,3 +1,6 @@
+require "elasticsearch/queries/base"
+require "elasticsearch/queries/bool_search"
+
 module Elasticsearch
   module Queries
     class FuzzySearch < Base

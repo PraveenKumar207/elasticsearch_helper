@@ -107,7 +107,6 @@ module Elasticsearch
             mappings: mappings.to_hash
           )
           puts "Created Index #{new_index_name}"
-          ActiveRecord::Base.logger.info "Created Index #{new_index_name}"
         end
 
         def copy_index_query(source_index, source_host)

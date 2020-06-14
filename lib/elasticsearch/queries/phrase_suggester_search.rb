@@ -1,3 +1,5 @@
+require "elasticsearch/queries/base"
+
 module Elasticsearch
   module Queries
     # PhraseSuggesterSearch requires trigram and reverse to be defined for the field

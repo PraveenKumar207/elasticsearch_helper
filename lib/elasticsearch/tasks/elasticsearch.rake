@@ -1,3 +1,5 @@
+require "elasticsearch/tasks/indexing"
+
 namespace :elasticsearch do
   namespace :index do
     desc "Create index by optionally importing data and switch alias after import"

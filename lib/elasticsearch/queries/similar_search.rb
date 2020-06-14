@@ -1,3 +1,6 @@
+require "active_support/core_ext/hash/indifferent_access"
+require "elasticsearch/queries/bool_search"
+
 module Elasticsearch
   module Queries
     class SimilarSearch < Base

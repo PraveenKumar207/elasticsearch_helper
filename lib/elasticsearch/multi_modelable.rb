@@ -7,6 +7,7 @@ module Elasticsearch
         multi_model_names.map(&:constantize).map(&method(:type))
       end
 
+      # TODO: This needs to be generic this now very tied to tllms
       def type(obj)
         klass = model(obj)
         return if klass.nil?

@@ -1,3 +1,5 @@
+require "elasticsearch/queries/base"
+
 module Elasticsearch
   module Queries
     class SignificantAggregation < Base
