@@ -1,31 +1,29 @@
-require_relative 'lib/elasticsearch_helper/version'
+require_relative "lib/elasticsearch_helper/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "elasticsearch_helper"
   spec.version       = ElasticsearchHelper::VERSION
-  spec.authors       = ["Bhavya C"]
-  spec.email         = ["bhavya.119@gmail.com"]
-
-  spec.summary       = 'Elastic search related helper functionalities'
-  spec.description   = 'Elastic search related helper functionalities'
-  spec.homepage      = 'https://github.com/bhavya-c/elasticsearch_helper'
+  spec.authors       = ["Bhavya C", "Subin Walter"]
+  spec.email         = ["bhavya.119@gmail.com", "subinwalter@gmail.com"]
+  spec.summary       = "Elasticsearch related helper functionalities"
+  spec.description   = "Elasticsearch related helper functionalities"
+  spec.homepage      = "https://github.com/byjutech/elasticsearch_helper"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
-
-  spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/bhavya-c/elasticsearch_helper"
-  spec.metadata["changelog_uri"] = "https://github.com/bhavya-c/elasticsearch_helper"
-
-  # Specify which files should be added to the gem when it is released.
-  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
-  spec.files         = Dir.chdir(File.expand_path('..', __FILE__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  end
+  spec.metadata["source_code_uri"] = "https://github.com/byjutech/elasticsearch_helper"
+  spec.metadata["changelog_uri"] = "https://github.com/byjutech/elasticsearch_helper"
   spec.bindir        = "bin"
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  # Specify which files should be added to the gem when it is released.
+  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
+  spec.files = Dir.chdir(File.expand_path(__dir__)) do
+    `git ls-files -z`.split("\x0")
+  end
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "elasticsearch-model", '~> 6.0'
+  spec.add_dependency "activesupport", "~> 5.2"
+  spec.add_dependency "elasticsearch", "~> 6.0"
+  spec.add_dependency "elasticsearch-model", "~> 6.0"
+  spec.add_dependency "rake"
   spec.add_dependency "ruby-progressbar"
 end

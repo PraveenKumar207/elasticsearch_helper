@@ -1,4 +1,4 @@
-module ElasticsearchHelper
+module Elasticsearch
   module Queries
     class PopularAggregation < Base
       def initialize(name:, field:, term_field:, term_value:)

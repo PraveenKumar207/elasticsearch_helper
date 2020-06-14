@@ -1,4 +1,4 @@
-module ElasticsearchHelper
+module Elasticsearch
   module Queries
     class ContextSuggesterSearch < Base
       DEFAULT_SIZE = 20

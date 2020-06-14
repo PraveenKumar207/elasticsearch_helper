@@ -1,4 +1,4 @@
-module ElasticsearchHelper
+module Elasticsearch
   module Queries
     class MultiMatchSearch < Base
       DEFAULT_OPERATOR = "and".freeze

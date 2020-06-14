@@ -1,4 +1,4 @@
-module ElasticsearchHelper
+module Elasticsearch
   module Queries
     class MatchPhraseSearch < Base
       def initialize(query_string:, field:)

@@ -1,4 +1,4 @@
-module ElasticsearchHelper
+module Elasticsearch
   module Queries
     class FuzzySearch < Base
       MAX_EDIT_DISTANCE = 1

@@ -1,6 +1,6 @@
-require "ruby-progressbar"
+require "active_support/core_ext/module"
 
-module ElasticsearchHelper
+module Elasticsearch
   module Tasks
     class Indexing
       SINGLE_MODEL_IMPORT_RELATION = "ES_IMPORT_RELATION".freeze
@@ -9,7 +9,7 @@ module ElasticsearchHelper
 
       def self.delete(index_name, force = false)
         if index_exists?(index_name)
-          if force || !aliases.include?(index_name)
+          if force || aliases.exclude?(index_name)
             Elasticsearch::Model.client.indices.delete index: index_name
             puts "Deleted Index #{index_name}"
           else
@@ -45,8 +45,8 @@ module ElasticsearchHelper
         create_index
 
         if import?
-          if model.multimodel
-            model::MODELS.each(&method(:import))
+          if model.multi_model?
+            model.multi_model_names.each(&method(:import))
           else
             import
           end
@@ -97,17 +97,17 @@ module ElasticsearchHelper
 
         attr_reader :model, :options
 
-        delegate :mappings, :settings, to: :index
         delegate :create_index!, :refresh_index!, to: :elasticsearch
-        delegate :index_name, :document_type, to: :model
+        delegate :index_name, :document_type, :mappings, :settings, to: :model
 
         def create_index
           create_index!(
             index: new_index_name,
-            settings: settings,
-            mappings: mappings
+            settings: settings.to_hash,
+            mappings: mappings.to_hash
           )
           puts "Created Index #{new_index_name}"
+          ActiveRecord::Base.logger.info "Created Index #{new_index_name}"
         end
 
         def copy_index_query(source_index, source_host)
@@ -127,10 +127,6 @@ module ElasticsearchHelper
           end
         end
 
-        def index
-          @_index ||= Elasticsearch::Indexes::Base.index(model)
-        end
-
         def elasticsearch
           @_elasticsearch ||= model.__elasticsearch__
         end
@@ -145,11 +141,7 @@ module ElasticsearchHelper
 
         def import(import_model = model)
           progress_bar = create_progress_bar(import_model)
-          batch_size = if model.const_defined?("INDEX_BATCH_SIZE")
-                         model.const_get("INDEX_BATCH_SIZE")
-                       else
-                         DEFAULT_BATCH_SIZE
-                       end
+          batch_size = model.record_import_batch_size
 
           relation(import_model).find_in_batches(batch_size: batch_size) do |batch|
             Elasticsearch::Model.client.bulk(
@@ -166,7 +158,7 @@ module ElasticsearchHelper
 
         def create_progress_bar(import_model)
           ProgressBar.create(
-            title: "Completed Importing #{import_model.name}",
+            title: "Completed Importing #{import_model}",
             total: import_count(import_model),
             format: "%a %b\u{15E7}%i %p%% %t %e",
             progress_mark: " ",
@@ -175,19 +167,11 @@ module ElasticsearchHelper
         end
 
         def relation(import_model)
-          if relation_from_multimodel?(import_model)
-            model.const_get(MULTI_MODEL_IMPORT_RELATION).fetch(import_model).call
-          elsif !model.multimodel && model.const_defined?(SINGLE_MODEL_IMPORT_RELATION)
-            model.const_get(SINGLE_MODEL_IMPORT_RELATION).call
+          if model.multi_model?
+            model.multi_model_import_relation_hash[import_model]&.call || import_model.constantize
           else
-            model
+            model.single_model_import_relation&.call || model.single_model_name.constantize
           end
-        end
-
-        def relation_from_multimodel?(import_model)
-          model.multimodel &&
-            model.const_defined?(MULTI_MODEL_IMPORT_RELATION) &&
-            model.const_get(MULTI_MODEL_IMPORT_RELATION).key?(import_model)
         end
 
         def import_count(import_model)
@@ -195,10 +179,9 @@ module ElasticsearchHelper
         end
 
         def body_from(batch)
-          if model.multimodel
-            model.as_indexed_json(batch).map { |data| { index: { data: data } } }
-          else
-            batch.map { |obj| { index: { _id: obj.id, data: obj.as_indexed_json } } }
+          batch.map do |obj|
+            searchable_object = model.new(obj)
+            { index: { _id: searchable_object._id, data: searchable_object.as_indexed_json } }
           end
         end
 

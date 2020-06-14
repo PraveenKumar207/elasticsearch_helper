@@ -1,4 +1,4 @@
-module ElasticsearchHelper
+module Elasticsearch
   module Queries
     # PhraseSuggesterSearch requires trigram and reverse to be defined for the field
     class PhraseSuggesterSearch < Base

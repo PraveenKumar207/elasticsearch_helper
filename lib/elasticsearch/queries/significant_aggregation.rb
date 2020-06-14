@@ -1,4 +1,4 @@
-module ElasticsearchHelper
+module Elasticsearch
   module Queries
     class SignificantAggregation < Base
       SUPPORTED_TYPES = %i(significant_terms significant_text).freeze

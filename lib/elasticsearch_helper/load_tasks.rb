@@ -4,7 +4,7 @@ module ElasticsearchHelper
   class LoadTasks
     include Rake::DSL if defined? Rake::DSL
     def install_tasks
-      load "elasticsearch_helper/tasks/elasticsearch.rake"
+      load "elasticsearch/tasks/elasticsearch.rake"
     end
   end
 end

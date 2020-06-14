@@ -1,4 +1,4 @@
-module ElasticsearchHelper
+module Elasticsearch
   module Queries
     class BoolSearch < Base
       def initialize(should: [], must: [], must_not: [], filter: [], filters: {}, **options)
