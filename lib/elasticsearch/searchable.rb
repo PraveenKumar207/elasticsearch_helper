@@ -27,9 +27,9 @@ module Elasticsearch
 
     def _id
       if self.class.multi_model?
-        self.class._id(object.id, self.class.type(object))
+        self.class._id(unique_id, self.class.type(object))
       else
-        self.class._id(object.id)
+        self.class._id(unique_id)
       end
     end
 
@@ -52,6 +52,14 @@ module Elasticsearch
 
             methods_json[method_name] = send(method_name)
           end
+        end
+      end
+
+      def unique_id
+        if respond_to?(:id, true)
+          id
+        else
+          object.send(object.class.primary_key)
         end
       end
   end
