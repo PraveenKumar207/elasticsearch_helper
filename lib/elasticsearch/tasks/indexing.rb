@@ -163,9 +163,9 @@ module Elasticsearch
 
         def relation(import_model)
           if model.multi_model?
-            model.multi_model_import_relation_hash[import_model]&.call || import_model.constantize
+            model.multi_model_import_relation(import_model)
           else
-            model.single_model_import_relation&.call || model.single_model_name.constantize
+            model.single_model_import_relation
           end
         end
 

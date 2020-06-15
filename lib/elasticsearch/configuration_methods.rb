@@ -59,6 +59,10 @@ module Elasticsearch
         !!defined?(@_multi_model_names)
       end
 
+      def single_model?
+        !!defined?(@_single_model_name)
+      end
+
       def multi_model_names
         @_multi_model_names
       end
@@ -67,13 +71,25 @@ module Elasticsearch
         @_single_model_name
       end
 
-      def multi_model_import_relation_hash
-        (defined?(@_multi_model_import_relation_hash) && @_multi_model_import_relation_hash.dup) || {}
+      def single_model_import_relation
+        return unless single_model?
+
+        (defined?(@_single_model_import_relation) && @_single_model_import_relation.call) ||
+          single_model_name.constantize
       end
 
-      def single_model_import_relation
-        @_single_model_import_relation
+      def multi_model_import_relation(model_name)
+        return unless  multi_model?
+        return unless multi_model_names.include? model_name
+
+        multi_model_import_relation_hash[model_name]&.call || model_name.constantize
       end
+
+      private
+
+        def multi_model_import_relation_hash
+          (defined?(@_multi_model_import_relation_hash) && @_multi_model_import_relation_hash.dup) || {}
+        end
     end
   end
 end
