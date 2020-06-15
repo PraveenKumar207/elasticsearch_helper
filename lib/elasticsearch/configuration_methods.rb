@@ -40,7 +40,7 @@ module Elasticsearch
       end
 
       def import_batch_size(size)
-        @_import_batch_size = 1000
+        @_import_batch_size = size
       end
 
       def record_import_batch_size
