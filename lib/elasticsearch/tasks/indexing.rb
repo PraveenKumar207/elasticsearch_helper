@@ -3,10 +3,6 @@ require "active_support/core_ext/module"
 module Elasticsearch
   module Tasks
     class Indexing
-      SINGLE_MODEL_IMPORT_RELATION = "ES_IMPORT_RELATION".freeze
-      MULTI_MODEL_IMPORT_RELATION = "ES_IMPORT_RELATIONS".freeze
-      DEFAULT_BATCH_SIZE = 1000
-
       def self.delete(index_name, force = false)
         if index_exists?(index_name)
           if force || aliases.exclude?(index_name)
