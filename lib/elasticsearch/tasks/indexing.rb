@@ -1,4 +1,5 @@
 require "active_support/core_ext/module"
+require "ruby-progressbar"
 
 module Elasticsearch
   module Tasks
