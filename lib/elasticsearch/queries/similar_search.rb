@@ -11,17 +11,18 @@ module Elasticsearch
       DEFAULT_MIN_DOC_FREQ = 5
       DEFAULT_MIN_WORD_LENGTH = 0
 
-      def initialize(fields:, ids: [], docs: [], filter: [], filters: {}, **options)
+      def initialize(fields:, ids: [], docs: [], filter: [], must_not: [], filters: {}, **options)
         @ids = ids
         @docs = docs
         @fields = fields
         @options = options.with_indifferent_access
         @filters = filters
         @filter = filter
+        @must_not = must_not
       end
 
       def query
-        BoolSearch.new(must: more_like_this_query, filter: filter, filters: filters).query
+        BoolSearch.new(must: more_like_this_query, filter: filter, filters: filters, must_not: must_not).query
       end
 
       def more_like_this_query
@@ -43,7 +44,7 @@ module Elasticsearch
 
       private
 
-        attr_reader :ids, :docs, :fields, :filters, :filter, :options
+        attr_reader :ids, :docs, :fields, :filters, :filter, :must_not, :options
 
         def minimum_should_match
           options[:minimum_should_match] || DEFAULT_MINIMUM_SHOULD_MATCH
