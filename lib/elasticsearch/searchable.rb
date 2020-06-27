@@ -56,11 +56,7 @@ module Elasticsearch
       end
 
       def unique_id
-        if respond_to?(:id, true)
-          id
-        else
-          object.send(object.class.primary_key)
-        end
+        object.send(object.class.primary_key)
       end
   end
 end
