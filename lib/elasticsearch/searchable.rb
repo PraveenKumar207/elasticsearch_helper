@@ -13,7 +13,8 @@ module Elasticsearch
       extend ActiveModel::Naming
 
       index_name "#{model_name.plural}-#{::Rails.env}"
-      document_type model_name.element
+      # document_type model_name.element
+      # document_type "_doc"
       attr_reader :object
     end
 
@@ -31,6 +32,10 @@ module Elasticsearch
       else
         self.class._id(unique_id)
       end
+    end
+
+    def document_type
+      self.class.model_name.element
     end
 
     private

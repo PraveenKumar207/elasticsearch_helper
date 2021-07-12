@@ -95,7 +95,8 @@ module Elasticsearch
         attr_reader :model, :options
 
         delegate :create_index!, :refresh_index!, to: :elasticsearch
-        delegate :index_name, :document_type, :mappings, :settings, to: :model
+        delegate :index_name, :mappings, :settings, to: :model
+        # delegate :index_name, :document_type, :mappings, :settings, to: :model
 
         def create_index
           create_index!(
@@ -142,7 +143,7 @@ module Elasticsearch
           relation(import_model).find_in_batches(batch_size: batch_size) do |batch|
             Elasticsearch::Model.client.bulk(
               index: new_index_name,
-              type: document_type,
+              # type: document_type,
               body: body_from(batch)
             )
             begin
