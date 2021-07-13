@@ -54,7 +54,7 @@ module Elasticsearch
         termvector_options.merge!(
           field: field,
           index: index_name,
-          # type: document_type,
+          type: document_type,
           term_statistics: true
         )
 
@@ -81,7 +81,7 @@ module Elasticsearch
 
         Elasticsearch::Model.client.delete(
           index: index_name,
-          # type: document_type,
+          type: document_type,
           id: _id(record_id, type)
         )
       rescue Elasticsearch::Transport::Transport::Errors::NotFound
@@ -106,8 +106,8 @@ module Elasticsearch
             body: {
               doc: searchable_model.as_indexed_json,
               doc_as_upsert: true
-            }
-            # type: document_type
+            },
+            type: document_type
           }
         end
     end

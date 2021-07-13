@@ -143,7 +143,7 @@ module Elasticsearch
           relation(import_model).find_in_batches(batch_size: batch_size) do |batch|
             Elasticsearch::Model.client.bulk(
               index: new_index_name,
-              # type: document_type,
+              type: document_type,
               body: body_from(batch)
             )
             begin
