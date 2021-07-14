@@ -34,7 +34,7 @@ module Elasticsearch
       end
     end
 
-    def document_type
+    def doc_type
       self.class.model_name.element
     end
 
