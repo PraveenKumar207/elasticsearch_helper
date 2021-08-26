@@ -96,7 +96,6 @@ module Elasticsearch
 
         delegate :create_index!, :refresh_index!, to: :elasticsearch
         delegate :index_name, :mappings, :settings, to: :model
-        # delegate :index_name, :document_type, :mappings, :settings, to: :model
 
         def create_index
           create_index!(
@@ -143,7 +142,6 @@ module Elasticsearch
           relation(import_model).find_in_batches(batch_size: batch_size) do |batch|
             Elasticsearch::Model.client.bulk(
               index: new_index_name,
-              # type: doc_type,
               body: body_from(batch)
             )
             begin
@@ -189,7 +187,7 @@ module Elasticsearch
         # All indexes except current aliases and the latest
         # index other than current aliases can be deleted
         def indexes_to_cleanup
-          Elasticsearch::Model.client.indices.get_aliases.keys.select do |full_index_name|
+          Elasticsearch::Model.client.indices.get_alias.keys.select do |full_index_name|
             (index_name.in? full_index_name) && (aliases.exclude? full_index_name)
           end.sort.slice(0...-1)
         end
