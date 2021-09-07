@@ -22,8 +22,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "activesupport"
-  spec.add_dependency "elasticsearch", "~> 6.0"
-  spec.add_dependency "elasticsearch-model", "~> 6.0"
+  spec.add_dependency "elasticsearch", "~> 7.0"
+  spec.add_dependency "elasticsearch-model", "~> 7.0"
   spec.add_dependency "rake"
   spec.add_dependency "ruby-progressbar"
 end

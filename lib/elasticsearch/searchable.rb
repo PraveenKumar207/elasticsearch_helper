@@ -13,7 +13,6 @@ module Elasticsearch
       extend ActiveModel::Naming
 
       index_name "#{model_name.plural}-#{::Rails.env}"
-      document_type model_name.element
       attr_reader :object
     end
 
